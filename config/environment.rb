@@ -4,7 +4,13 @@ require 'open-uri'
 # require 'rspec'
 
 Bundler.require(:default, :development)
-require_all './lib'
+
+require_relative '../lib/stock_cli'
+require_relative '../lib/stocks/cli'
+require_relative '../lib/stocks/scraper'
+require_relative '../lib/stocks/version'
+
+# require_all './lib'
 
 # require "pry"
 # Pry.start

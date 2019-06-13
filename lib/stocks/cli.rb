@@ -1,5 +1,6 @@
 class Stock_cli::Cli
   def call
+    
   end
 end
 # require "stock/cli/version"
