@@ -1,19 +1,15 @@
 # require_relative './config/environment'
 
-def get_page
-  puts "inside the method"
-  binding.pry
-end
 
-# module Stock_cli::Scraper
+module Stock_cli::Scraper
 
-#   # def test_scraper_all
-#   #   # get_page
-#   #   puts "inside the method"
-#   # end
+  # def test_scraper_all
+  #   # get_page
+  #   puts "inside the method"
+  # end
   
-#   # binding.pry
-# end
+  # binding.pry
+end
 
   # get % change of stocks upon entry of a number associated with the stock (possibly a number generated via each.with_index)
   #start with the general stock section so that users can select the category of stock, then get the percentages by listed stocks (needs to have 2 models/ be two levels deep).
