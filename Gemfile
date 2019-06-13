@@ -1,4 +1,7 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in stock-cli.gemspec
+require 'nokogiri'
+require 'open-uri'
+
+
 gemspec
