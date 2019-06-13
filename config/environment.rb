@@ -1,6 +1,7 @@
 require "bundler/setup"
 require "stock/cli"
 require 'open-uri'
+require 'rspec'
 
 Bundler.require
 

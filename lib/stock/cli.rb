@@ -1,5 +1,5 @@
 require "stock/cli/version"
-require "pry"
+
 
 module Stock
   module Cli
@@ -8,4 +8,4 @@ module Stock
   end
 end
 
-binding.pry
+binding.pryrLOA
