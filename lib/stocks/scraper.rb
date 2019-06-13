@@ -12,21 +12,48 @@ class Stock_cli::Scraper
   
   def scrape_for_category
     category_hash = {}
-    get_page.css("div.section a").collect do |category|
+    get_page.css("div.section a").each do |category|
       category_hash[:title] = category.text
       category_hash[:category_extension] = category.attribute("href").value
       category_hash[:category_url] = base_url + category_hash[category_extension]
     end
+    category_hash
   end
   
-  def scrape_best_performing(category_url)
-    best_performing = {}
+  def scrape_best_and_worst_performing(category_url)
     category = get_page((category_url).gsub("default", "focus"))
-    category.each.with_index
-      best_performing[:company_name] = category.css("td.name-col").text
-      best_performing[:percent_change] = category.css("td.percent-col").text
+    category.css("table stocks tbody tr").map do |company|
+        company_hash = {}
+        company_hash[:company_name] = company.css("td.name-col").text
+        company_hash[:percent_change] = company.css("td.percent-col").text
     end
   end
+  
+  # def scrape_best_performing(category_url)
+  #   best_performing = []
+  #   category = get_page((category_url).gsub("default", "focus"))
+  #   category.css("table stocks tbody tr").each do |company|
+  #     if category.css("table caption").text == "Best Performing Stocks"
+  #       company_hash = {}
+  #       company_hash[:percent_change] = company.css("td.percent-col").text
+  #       best_performing << company_hash
+  #     end
+  #   end
+    best_performing
+  end
+  
+  # def scrape_best_performing(category_url)
+  #   best_performing = []
+  #   category = get_page((category_url).gsub("default", "focus"))
+  #   category.css("table stocks tbody tr").each do |company|
+  #       if company.include?
+  #       company_hash = {}
+  #       company_hash[:percent_change] = company.css("td.percent-col").text
+  #       best_performing << company_hash
+  #     end
+  #   end
+  #   best_performing
+  # end
   
   def scrape_full_category_list(category_url)
     full_list = {}
