@@ -2,4 +2,5 @@
 
 require_relative  '../config/environment.rb'
 
+# Stock_cli::Cli.new.call
 puts "Run Loaded"
