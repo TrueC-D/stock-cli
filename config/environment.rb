@@ -1,11 +1,13 @@
 require "bundler/setup"
-# require "stock/cli"
 require 'open-uri'
-require 'rspec'
+# require "stock/cli"
+# require 'rspec'
 
 Bundler.require(:default, :development)
+require_all './lib'
 
-require "pry"
+# require "pry"
 # Pry.start
+
 
 puts "Environment Loaded"
