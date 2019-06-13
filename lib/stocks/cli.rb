@@ -1,7 +1,14 @@
+
+
 class Stock_cli::Cli
   def call
     
+    
+    start
   end
+  
+  def start
+    puts "Would you like to "
 end
 # require "stock/cli/version"
 

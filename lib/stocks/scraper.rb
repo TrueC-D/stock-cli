@@ -1,12 +1,44 @@
 # require_relative './config/environment'
-
 require 'pry'
-module Stock_cli::Scraper
+
+class Stock_cli::Scraper
+  def base_url
+    "http://bigcharts.marketwatch.com"
+  end
+  
   def get_page (page = "http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp")
     Nokogiri::HTML(open(page))
   end
-
-
+  
+  def scrape_for_category
+    category_hash = {}
+    get_page.css("div.section a").collect do |category|
+      category_hash[:title] = category.text
+      category_hash[:category_extension] = category.attribute("href").value
+      category_hash[:category_url] = base_url + category_hash[category_extension]
+    end
+  end
+  
+  def scrape_best_performing(category_url)
+    best_performing = {}
+    category = get_page((category_url).gsub("default", "focus"))
+    category.each.with_index
+      best_performing[:company_name] = category.css("td.name-col").text
+      best_performing[:percent_change] = category.css("td.percent-col").text
+    end
+  end
+  
+  def scrape_full_category_list(category_url)
+    full_list = {}
+    
+    category = get_page((category_url).gsub("default", "stocklist"))
+    category.css
+    full_list[:company_name] = category.css("td.name-col").text
+    full_list[:percent_change] = get_page(base_url+(category.css("td.chart-col attribute").attribute("href").value)).css("div.important")[1].text
+  end
+    
+  industry/bigcharts-com/stocklist.asp?symb=WSJMXUSAGRI
+  
   def test_scraper_all
     # get_page.css("div.section a").text == category title
     # get_page.css("div.section a").attribute("href").value =category_extension
@@ -26,7 +58,7 @@ module Stock_cli::Scraper
     
     
     puts "inside the method"
-    binding.pry
+    
   end
 end
 
