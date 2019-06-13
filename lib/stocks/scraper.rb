@@ -1,32 +1,38 @@
 # require_relative './config/environment'
 require 'pry'
 
-class Stock_cli::Scraper
-  def base_url
+class Scraper
+  def self.base_url
     "http://bigcharts.marketwatch.com"
+    
   end
   
-  def get_page (page = "http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp")
+  def self.get_page (page = "http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp")
     Nokogiri::HTML(open(page))
   end
   
-  def scrape_for_category
+  def self.scrape_for_category ()
     category_hash = {}
     get_page.css("div.section a").each do |category|
       category_hash[:title] = category.text
       category_hash[:category_extension] = category.attribute("href").value
       category_hash[:category_url] = base_url + category_hash[category_extension]
+
     end
     category_hash
   end
   
-  def scrape_best_and_worst_performing(category_url)
+  def self.scrape_best_and_worst_performing(category_url)
+    puts " HELLO "
     category = get_page((category_url).gsub("default", "focus"))
-    category.css("table stocks tbody tr").map do |company|
-        company_hash = {}
-        company_hash[:company_name] = company.css("td.name-col").text
-        company_hash[:percent_change] = company.css("td.percent-col").text
-    end
+    binding.pry
+    # category.css("table stocks tbody tr").each do |company|
+      
+    #     company_hash = {}
+    #     company_hash[:company_name] = company.css("td.name-col").text
+    #     company_hash[:percent_change] = company.css("td.percent-col").text
+       
+    # end
   end
   
   # def scrape_best_performing(category_url)
@@ -39,8 +45,7 @@ class Stock_cli::Scraper
   #       best_performing << company_hash
   #     end
   #   end
-    best_performing
-  end
+  
   
   # def scrape_best_performing(category_url)
   #   best_performing = []
@@ -55,7 +60,8 @@ class Stock_cli::Scraper
   #   best_performing
   # end
   
-  def scrape_full_category_list(category_url)
+  
+  def self.scrape_full_category_list(category_url)
     full_list = {}
     
     category = get_page((category_url).gsub("default", "stocklist"))
@@ -64,9 +70,9 @@ class Stock_cli::Scraper
     full_list[:percent_change] = get_page(base_url+(category.css("td.chart-col attribute").attribute("href").value)).css("div.important")[1].text
   end
     
-  industry/bigcharts-com/stocklist.asp?symb=WSJMXUSAGRI
+  # industry/bigcharts-com/stocklist.asp?symb=WSJMXUSAGRI
   
-  def test_scraper_all
+  def self.test_scraper_all
     # get_page.css("div.section a").text == category title
     # get_page.css("div.section a").attribute("href").value =category_extension
     # url_base = "http://bigcharts.marketwatch.com"

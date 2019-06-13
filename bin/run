@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require_relative  '../config/environment.rb'
+ 
+Scraper.scrape_best_and_worst_performing("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSMENT")
 
 # Stock_cli::Cli.new.call
 puts "Run Loaded"

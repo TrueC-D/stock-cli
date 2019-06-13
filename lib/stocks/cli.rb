@@ -9,6 +9,7 @@ class Stock_cli::Cli
   
   def start
     puts "Would you like to "
+  end
 end
 # require "stock/cli/version"
 
