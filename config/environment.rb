@@ -1,5 +1,8 @@
 require "bundler/setup"
 require "stock/cli"
+require 'open-uri'
+
+Bundler.require
 
 require "pry"
 Pry.start

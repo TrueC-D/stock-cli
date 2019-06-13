@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
-require 'nokogiri'
-require 'open-uri'
+gem 'nokogiri'
+gem 'pry'
 
-
-gemspec
+# gemspec

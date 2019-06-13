@@ -1,4 +1,5 @@
 require "stock/cli/version"
+require "pry"
 
 module Stock
   module Cli
@@ -6,3 +7,5 @@ module Stock
     # Your code goes here...
   end
 end
+
+binding.pry
