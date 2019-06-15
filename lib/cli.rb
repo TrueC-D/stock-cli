@@ -1,5 +1,5 @@
 
-puts "Command Line Interface Loaded"
+
 
 class Cli
   def call
@@ -21,3 +21,4 @@ end
 #   end
 # end
 
+puts "Command Line Interface Loaded"

@@ -1,6 +1,16 @@
 # require_relative './config/environment'
 require 'pry'
-puts "Scraper Loaded"
+
+
+
+  # get % change of stocks upon entry of a number associated with the stock (possibly a number generated via each.with_index)
+  #start with the general stock section so that users can select the category of stock, then get the percentages by listed stocks (needs to have 2 models/ be two levels deep).
+  # Original page that has the categories leads to a sublink, click sub link then get to page with listed stocks.  Need to scrape 1) category names, category links on 1st page, 1.5) each.with_index, collect category names and let user select category by entering the associated index key.  Use .send method 2) main category link on 2nd page, 3) Stock names on 3rd page, 4) associate indecies with this name, and 4) % change for associated stock. 
+  # def self.get_page #(page = "http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp")
+  #   binding.pry
+  #   # Nokogiri::HTML(open(page))
+  # end
+  #
 
 class Scraper
   def self.base_url
@@ -23,7 +33,6 @@ class Scraper
       category_arr << category_hash
     end
     category_arr
-    binding.pry
   end
   
   def self.scrape_best_and_worst_performing(category_url)
@@ -33,44 +42,23 @@ class Scraper
         company_hash = {}
         company_hash[:company_name] = company.css("td.name-col").text
         company_hash[:percent_change] = company.css("td.percent-col").text
-        company_arr<< company_hash
+        company_arr << company_hash
     end
     company_arr
   end
   
-  # def scrape_best_performing(category_url)
-  #   best_performing = []
-  #   category = get_page((category_url).gsub("default", "focus"))
-  #   category.css("table stocks tbody tr").each do |company|
-  #     if category.css("table caption").text == "Best Performing Stocks"
-  #       company_hash = {}
-  #       company_hash[:percent_change] = company.css("td.percent-col").text
-  #       best_performing << company_hash
-  #     end
-  #   end
-  
-  
-  # def scrape_best_performing(category_url)
-  #   best_performing = []
-  #   category = get_page((category_url).gsub("default", "focus"))
-  #   category.css("table stocks tbody tr").each do |company|
-  #       if company.include?
-  #       company_hash = {}
-  #       company_hash[:percent_change] = company.css("td.percent-col").text
-  #       best_performing << company_hash
-  #     end
-  #   end
-  #   best_performing
-  # end
-  
-  
-  def self.scrape_full_category_list(category_url)
-    full_list = {}
-    
+  def self.scrape_full_company_list(category_url)
+    full_list = []
     category = get_page((category_url).gsub("default", "stocklist"))
-    category.css
-    full_list[:company_name] = category.css("td.name-col").text
-    full_list[:percent_change] = get_page(base_url+(category.css("td.chart-col attribute").attribute("href").value)).css("div.important")[1].text
+    category.css("div.content").each do |company|
+      company_hash = {}
+      company_hash[:company_name] = category.css("td.name-col").text
+      company_hash[:company_chart_extension] = category.css("td.chart-col a").attribute("href").value
+      company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
+      full_list << company_hash
+    end
+    full_list
+    binding.pry
   end
     
   # industry/bigcharts-com/stocklist.asp?symb=WSJMXUSAGRI
@@ -98,11 +86,29 @@ class Scraper
   end
 end
 
-  # get % change of stocks upon entry of a number associated with the stock (possibly a number generated via each.with_index)
-  #start with the general stock section so that users can select the category of stock, then get the percentages by listed stocks (needs to have 2 models/ be two levels deep).
-  # Original page that has the categories leads to a sublink, click sub link then get to page with listed stocks.  Need to scrape 1) category names, category links on 1st page, 1.5) each.with_index, collect category names and let user select category by entering the associated index key.  Use .send method 2) main category link on 2nd page, 3) Stock names on 3rd page, 4) associate indecies with this name, and 4) % change for associated stock. 
-  # def self.get_page #(page = "http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp")
-  #   binding.pry
-  #   # Nokogiri::HTML(open(page))
+ # def scrape_best_performing(category_url)
+  #   best_performing = []
+  #   category = get_page((category_url).gsub("default", "focus"))
+  #   category.css("table stocks tbody tr").each do |company|
+  #     if category.css("table caption").text == "Best Performing Stocks"
+  #       company_hash = {}
+  #       company_hash[:percent_change] = company.css("td.percent-col").text
+  #       best_performing << company_hash
+  #     end
+  #   end
+  
+  
+  # def scrape_best_performing(category_url)
+  #   best_performing = []
+  #   category = get_page((category_url).gsub("default", "focus"))
+  #   category.css("table stocks tbody tr").each do |company|
+  #       if company.include?
+  #       company_hash = {}
+  #       company_hash[:percent_change] = company.css("td.percent-col").text
+  #       best_performing << company_hash
+  #     end
+  #   end
+  #   best_performing
   # end
-  #
+  
+  puts "Scraper Loaded"
