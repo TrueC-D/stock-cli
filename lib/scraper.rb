@@ -52,8 +52,8 @@ class Scraper
     category = get_page((category_url).gsub("default", "stocklist"))
     category.css("div.content").each do |company|
       company_hash = {}
-      company_hash[:company_name] = category.css("td.name-col").text
-      company_hash[:company_chart_extension] = category.css("td.chart-col a").attribute("href").value
+      company_hash[:company_name] = company.css("td.name-col").text
+      company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
       company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
       full_list << company_hash
     end
