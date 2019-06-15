@@ -12,15 +12,18 @@ class Scraper
     Nokogiri::HTML(open(page))
   end
   
-  def self.scrape_for_category ()
-    category_hash = {}
-    get_page.css("div.section a").each do |category|
+  def self.scrape_for_categories
+    category_arr = []
+    
+    get_page.css("div.section ul a").each do |category|
+      category_hash = {}
       category_hash[:title] = category.text
       category_hash[:category_extension] = category.attribute("href").value
-      category_hash[:category_url] = base_url + category_hash[category_extension]
-
+      category_hash[:category_url] = base_url + category_hash[:category_extension]
+      category_arr << category_hash
     end
-    category_hash
+    category_arr
+    binding.pry
   end
   
   def self.scrape_best_and_worst_performing(category_url)

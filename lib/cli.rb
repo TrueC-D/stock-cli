@@ -4,7 +4,6 @@ puts "Command Line Interface Loaded"
 class Cli
   def call
     
-    
     start
   end
   
