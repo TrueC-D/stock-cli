@@ -1,6 +1,7 @@
 
+puts "Command Line Interface Loaded"
 
-class Stock_cli::Cli
+class Cli
   def call
     
     

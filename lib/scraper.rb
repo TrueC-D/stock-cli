@@ -1,5 +1,6 @@
 # require_relative './config/environment'
 require 'pry'
+puts "Scraper Loaded"
 
 class Scraper
   def self.base_url
@@ -23,16 +24,15 @@ class Scraper
   end
   
   def self.scrape_best_and_worst_performing(category_url)
-    puts " HELLO "
     category = get_page((category_url).gsub("default", "focus"))
-    binding.pry
-    # category.css("table stocks tbody tr").each do |company|
-      
-    #     company_hash = {}
-    #     company_hash[:company_name] = company.css("td.name-col").text
-    #     company_hash[:percent_change] = company.css("td.percent-col").text
-       
-    # end
+    company_arr = []
+    category.css("table.stocks tbody tr").each do |company|
+        company_hash = {}
+        company_hash[:company_name] = company.css("td.name-col").text
+        company_hash[:percent_change] = company.css("td.percent-col").text
+        company_arr<< company_hash
+    end
+    company_arr
   end
   
   # def scrape_best_performing(category_url)
