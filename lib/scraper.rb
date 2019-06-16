@@ -45,29 +45,38 @@ class Scraper
   end
   
   def self.full_list_collect(category_url)
-    list_arr = []
-    category = get_page((category_url).gsub("default", "stocklist"))
-    category.css("div.paging ul a").each{ |url| list_arr << url.attribute("href").value}
+    category_url_new = category_url.gsub("default", "stocklist")
+    list_arr = [category_url_new]
+    category = get_page(category_url_new)
+    category.css("div.paging ul a").each{ |url| list_arr << (base_url + url.attribute("href").value)}
     list_arr
   end
   
-  def self.scrape_full_company_lists(category_url)
-    full_list = []
-    category = get_page((category_url).gsub("default", "stocklist"))
-    
-    
-    
-    category_url.css("table.stocks tbody tr").each do |company|
+  def self.full_list_scrape_method(url)
+    page = get_page(url)
+    page.css("table.stocks tbody tr").each do |company|
       company_hash = {}
       company_hash[:company_name] = company.css("td.name-col").text
       company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
       company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
-      
-      
       full_list << company_hash
+    
+  end
+  
+  def self.scrape_full_company_lists(category_url)
+    full_list = []
+    category = (category_url).gsub("default", "stocklist")
+    # self.full_list_scrape_method(category)
+    # cateogyr.css("table.stocks tbody tr").each do |company|
+    #   company_hash = {}
+    #   company_hash[:company_name] = company.css("td.name-col").text
+    #   company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
+    #   company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
+      # full_list << company_hash
+      
     end
     full_list
-    
+    binding.pry
   end
 end
 
