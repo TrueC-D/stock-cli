@@ -15,6 +15,6 @@ require_all './lib'
 # require "pry"
 # Pry.start
 
-Scraper.scrape_full_company_list("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
+Scraper.full_list_collect("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
 
 puts "Environment Loaded"
