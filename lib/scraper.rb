@@ -52,28 +52,27 @@ class Scraper
     list_arr
   end
   
-  def self.full_list_scrape_method(url)
-    page = get_page(url)
-    page.css("table.stocks tbody tr").each do |company|
-      company_hash = {}
-      company_hash[:company_name] = company.css("td.name-col").text
-      company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
-      company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
-      full_list << company_hash
-    
-  end
+  # def self.full_list_scrape_method(url)
+  #   page = get_page(url)
+  #   page.css("table.stocks tbody tr").each do |company|
+  #     company_hash = {}
+  #     company_hash[:company_name] = company.css("td.name-col").text
+  #     company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
+  #     company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
+  #     full_list << company_hash
+  #   end
+  # end
   
   def self.scrape_full_company_lists(category_url)
     full_list = []
-    category = (category_url).gsub("default", "stocklist")
-    # self.full_list_scrape_method(category)
-    # cateogyr.css("table.stocks tbody tr").each do |company|
-    #   company_hash = {}
-    #   company_hash[:company_name] = company.css("td.name-col").text
-    #   company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
-    #   company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
-      # full_list << company_hash
-      
+    full_list_collect(category_url).each do |url|
+      get_page(url).css("table.stocks tbody tr").each do |company|
+        company_hash = {}
+        company_hash[:company_name] = company.css("td.name-col").text
+        company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
+        company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important")[1].text
+        full_list << company_hash
+      end
     end
     full_list
     binding.pry
