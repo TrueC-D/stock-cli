@@ -1,5 +1,8 @@
 class Cli
+  
+  
   def call
+    Scraper.scrape_for_categories.each{|element| Category.new(element)}
     
     start
   end
@@ -36,35 +39,36 @@ class Cli
       top_menu
     end
   end
-  def general_stock_menu
-    puts "We have a wide selection of stock categories."
-    Scraper.scrape_for_categories.each.with_index(1) do |category, index|
-      puts "Type #{index} for #{category[:title]}"
-      puts "To return to the previous menu please type "b""
-    end
+  # def general_stock_menu
+  #   puts "We have a wide selection of stock categories."
+  #   Scraper.scrape_for_categories.each.with_index(1) do |category, index|
+  #     puts "Type #{index} for #{category[:title]}"
+  #     puts "To return to the previous menu please type "b""
+  #   end
       
-      input
+  #     input
       
-      if input.upcase == "B"
-        start
-      elsif input.to_i >= 0 && input.to_i < Scraper.scrape_for_categories.length
-        Scraper.scrape_for_categories[input.to_i - 1][]
+  #     if input.upcase == "B"
+  #       start
+  #     elsif input.to_i >= 0 && input.to_i < Scraper.scrape_for_categories.length
+  #       self.Patron.category_index = (input.to_i-1)
+  #       Scraper.scrape_for_categories[input.to_i - 1][]
         
-        when
+  #       when
           
-        when
+  #       when
           
-        when
+  #       when
           
-        end
+  #       end
         
-      else
+  #     else
         
-      end
+  #     end
       
     
     
-  end
+  # end
 end
 
 

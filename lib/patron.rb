@@ -1,5 +1,5 @@
 class Patron
-  attr_accessor
+  attr_accessor :category_index
   
   def initialize
   end
