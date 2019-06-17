@@ -1,5 +1,5 @@
 class Stocks
-  attr_accessor
+  attr_accessor :category
   
   def initialize
   end
