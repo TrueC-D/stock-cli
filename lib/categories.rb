@@ -10,7 +10,10 @@ class Category
     binding.pry
   end
   
-
+  def self.list
+    @@all.each.with_index(1){|category, index| puts "Type #{index} to select #{category.title}."}
+  end
+  
   
   
 end
