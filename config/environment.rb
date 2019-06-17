@@ -12,9 +12,6 @@ Bundler.require(:default, :development)
 
 require_all './lib'
 
-module Concerns
-end
-
 # require "pry"
 # Pry.start
 

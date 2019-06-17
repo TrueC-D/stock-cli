@@ -1,1 +1,4 @@
-module Concerns::General
+module Concerns
+  module General
+  end
+end

@@ -10,7 +10,7 @@ class Category
     binding.pry
   end
   
-  dat
+
   
   
 end
