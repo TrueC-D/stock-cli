@@ -14,9 +14,8 @@ require_all './lib'
 
 # require "pry"
 # Pry.start
-Scraper.full_list_collect("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
+
 Scraper.scrape_full_company_lists("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
-    full_list = []
 
 # Scraper.scrape_full_company_lists("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
 

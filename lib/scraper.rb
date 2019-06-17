@@ -59,7 +59,7 @@ class Scraper
         company_hash = {}
         company_hash[:company_name] = company.css("td.name-col").text
         company_hash[:company_chart_extension] = company.css("td.chart-col a").attribute("href").value
-        company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important").text
+        company_hash[:percent_change] = get_page(base_url+(company_hash[:company_chart_extension])).css("div.important").text.split("\r\n").last.to_s.strip
         full_list << company_hash
       end
     end
