@@ -17,3 +17,5 @@ class Category
   
   
 end
+
+puts "Category Loaded"

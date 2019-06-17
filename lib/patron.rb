@@ -1,6 +1,14 @@
 class Patron
-  attr_accessor :category_index
+  attr_accessor :username, :password
   
-  def initialize
+  def initialize(username, password)
+    @username = username
+    @password = password
+    @stocks = []
   end
+  
+  def categories(stock)
+    
 end
+
+puts "Patron Loaded"
