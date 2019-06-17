@@ -27,6 +27,7 @@ class Cli
       general_stock_menu
     when "2"
       puts "You will need to be logged in to access the requested information."
+      log_in_or_create_menu
       puts "What type of stock would you like to buy?"
       general_stock_menu
    
@@ -35,7 +36,21 @@ class Cli
       top_menu
     end
   end
-  def self.log_in_or_create_new_menu
+  def self.log_in_or_create_menu
+    puts "If your have an existing acount type 1 to log in. Otherwise type 2 to create a new account or type 0 to return to the previous menu."
+    input = gets.strip
+    
+    case input
+    when "1"
+      log_in
+    when "2"
+      create_new_patron
+    when "0"
+      start
+    else
+      puts "Invalid input."
+      log_in_or_create_menu
+    end
   end
   def self.general_stock_menu
     puts "We have a wide selection of stock categories."
