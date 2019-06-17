@@ -6,20 +6,25 @@ class Cli
   
   def self.start
     puts "Within this platform we store the most recent percent change for stocks. What would you like to do?"
-    menu_1
+    top_menu
   end
   
-  def self.menu_1
+  def self.input
+    gets.strip
+  end
+  
+  def self.top_menu
     puts "To search for general stock information, type 1"
     puts "To buy stock type 2"
     puts "To sell stock type 3"
     puts "Or view information regarding your personal stocks, type 4"
     
-    input = gets.strip
+    input
     
     case input
     when "1"
-      
+      puts "What type of stocks would you like to search for?"
+      general_stock_menu
     when "2"
       
     when "3"
@@ -28,8 +33,37 @@ class Cli
       
     else
       puts "Invalid input"
-      menu_1
+      top_menu
     end
+  end
+  def general_stock_menu
+    puts "We have a wide selection of stock categories."
+    Scraper.scrape_for_categories.each.with_index(1) do |category, index|
+      puts "Type #{index} for #{category[:title]}"
+      puts "To return to the previous menu please type "b""
+    end
+      
+      input
+      
+      if input.upcase == "B"
+        start
+      elsif input.to_i >= 0 && input.to_i < Scraper.scrape_for_categories.length
+        Scraper.scrape_for_categories[input.to_i - 1][]
+        
+        when
+          
+        when
+          
+        when
+          
+        end
+        
+      else
+        
+      end
+      
+    
+    
   end
 end
 
