@@ -17,9 +17,7 @@ class Cli
   
   def self.top_menu
     puts "To search for general stock information, type 1"
-    puts "To buy stock type 2"
-    puts "To sell stock type 3"
-    puts "Or view information regarding your personal stocks, type 4"
+    puts "Type 2 to buy stock, sell stock, or view information regarding your personal stocks."
     
     input = gets.strip
     
@@ -28,20 +26,18 @@ class Cli
       puts "What type of stock would you like to search for?"
       general_stock_menu
     when "2"
-      puts "Please log in or create a new account."
+      puts "You will need to be logged in to access the requested information."
       puts "What type of stock would you like to buy?"
       general_stock_menu
-      
-    when "3"
-      #=> sell stock
-    when "4"
-      #=> personal stock
+   
     else
       puts "Invalid input"
       top_menu
     end
   end
-  def general_stock_menu
+  def self.log_in_or_create_new_menu
+  end
+  def self.general_stock_menu
     puts "We have a wide selection of stock categories."
     Category.list
     puts "Type 0 to return to the preveious menu."
@@ -57,7 +53,7 @@ class Cli
     end
   end
   
-  def stock_list_menu
+  def self.stock_list_menu
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
     puts "Type 3 to see the bottom nine performing stocks in your category."
