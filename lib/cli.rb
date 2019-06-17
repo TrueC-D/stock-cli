@@ -30,12 +30,12 @@ class Cli
       log_in_or_create_menu
       puts "What type of stock would you like to buy?"
       general_stock_menu
-   
     else
       puts "Invalid input"
       top_menu
     end
   end
+  
   def self.log_in_or_create_menu
     puts "If your have an existing acount type 1 to log in. Otherwise type 2 to create a new account or type 0 to return to the previous menu."
     input = gets.strip
@@ -52,6 +52,7 @@ class Cli
       log_in_or_create_menu
     end
   end
+  
   def self.general_stock_menu
     puts "We have a wide selection of stock categories."
     Category.list

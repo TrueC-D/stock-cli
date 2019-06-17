@@ -1,10 +1,11 @@
 class Stock_list
-  attr_accessor :category, :patron
+  attr_accessor :category, :patron, :title
   @@all = []
-  def initialize (patron)
+  def initialize (patron, hash)
+    @patron
     @title
     @percent_change
-    @@all 
+    @@all << self
   end
   
   def self.top_9(category_input)
