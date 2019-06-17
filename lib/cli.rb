@@ -1,6 +1,5 @@
 class Cli
   
-  
   def call
     Scraper.scrape_for_categories.each{|element| Category.new(element)}
     
@@ -26,9 +25,11 @@ class Cli
     
     case input
     when "1"
-      puts "What type of stocks would you like to search for?"
+      puts "What type of stock would you like to search for?"
       general_stock_menu
     when "2"
+      puts "What type of stock would you like to buy?"
+      general_stock_menu
       
     when "3"
       
@@ -39,34 +40,26 @@ class Cli
       top_menu
     end
   end
-  # def general_stock_menu
-  #   puts "We have a wide selection of stock categories."
-  #   Category.list
-  #   puts "To return to the previous menu please type "b""
+  def general_stock_menu
+    puts "We have a wide selection of stock categories."
+    Category.list
+    puts "To return to the previous menu please type "b""
       
-  #   input
+    input
       
-  #   if input.upcase == "B"
-  #     start
-  #   elsif input.to_i >= 0 && input.to_i < Scraper.scrape_for_categories.length
-  #     self.Patron.category_index = (input.to_i-1)
-  #     Scraper.scrape_for_categories[input.to_i - 1][]
+    if input.upcase == "B"
+      start
+    elsif input.to_i >= 0 && input.to_i < scraper.all.length
+      chosen_category = Category.all[input.to_i-1]
+      stock_list_menu
+    end
+  end
+  
+  def stock_list_menu
+    puts "What  "
       
-  #     when
-        
-  #     when
-        
-  #     when
-        
-  #     end
       
-  #   else
-      
-  #   end
-      
-    
-    
-  # end
+  
 end
 
 

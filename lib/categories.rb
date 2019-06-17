@@ -14,6 +14,10 @@ class Category
     @@all.each.with_index(1){|category, index| puts "Type #{index} to select #{category.title}."}
   end
   
+  def self.all
+    @@all
+  end
+  
   
   
 end

@@ -1,5 +1,4 @@
 # require_relative './config/environment'
-require 'pry'
 
 class Scraper
   def self.base_url
