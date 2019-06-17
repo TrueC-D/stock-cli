@@ -21,13 +21,14 @@ class Cli
     puts "To sell stock type 3"
     puts "Or view information regarding your personal stocks, type 4"
     
-    input
+    input = gets.strip
     
     case input
     when "1"
       puts "What type of stock would you like to search for?"
       general_stock_menu
     when "2"
+      puts "Please log in or create a new account."
       puts "What type of stock would you like to buy?"
       general_stock_menu
       
@@ -43,17 +44,16 @@ class Cli
   def general_stock_menu
     puts "We have a wide selection of stock categories."
     Category.list
-    puts "To return to the previous menu please type 'b'"
+    puts "Type 0 to return to the preveious menu."
       
-    input
+    input = gets.strip
       
-    if input.upcase == "B"
+    if input == "0"
       start
-    elsif input.to_i >= 0 && input.to_i < scraper.all.length
+    elsif input.to_i > 0 && input.to_i <= scraper.all.length
       chosen_category = Category.all[input.to_i-1]
       puts "What would you prefer?"
       stock_list_menu
-      
     end
   end
   
@@ -61,26 +61,41 @@ class Cli
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
     puts "Type 3 to see the bottom nine performing stocks in your category."
-    puts "To return to the preveious menu type 'b'."
+    puts "Type 0 to return to the preveious menu."
     
-    input
+    input = gets.strip
     
     case input
     
     when "1"
-     #=> all stocks
+      Stock_list.all_stocks_by_category(input)
     when "2"
-      #=> top 9
+      Stock_list.top_9(input)
     when "3"
-      #=> bottom 9
-    when .upcase == 'B'
-      
+      Stock_list.bottom_9(input)
+    when "0"
+      general_stock_menu
     else 
       puts "Invalid Input"
       stock_list_menu
     end
   end
-      
+  
+  def self.log_in
+    
+  end
+  
+  def self.username_error
+    
+  end
+  
+  def self.password_error
+    
+  end
+  
+  def self.create_new_patron
+    
+  end
       
   
 end
