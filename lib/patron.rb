@@ -9,6 +9,7 @@ class Patron
   
   def categories(stock)
     
+  end
 end
 
 puts "Patron Loaded"
