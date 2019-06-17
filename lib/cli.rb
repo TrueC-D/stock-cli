@@ -32,9 +32,9 @@ class Cli
       general_stock_menu
       
     when "3"
-      
+      #=> sell stock
     when "4"
-      
+      #=> personal stock
     else
       puts "Invalid input"
       top_menu
@@ -43,7 +43,7 @@ class Cli
   def general_stock_menu
     puts "We have a wide selection of stock categories."
     Category.list
-    puts "To return to the previous menu please type "b""
+    puts "To return to the previous menu please type 'b'"
       
     input
       
@@ -51,12 +51,35 @@ class Cli
       start
     elsif input.to_i >= 0 && input.to_i < scraper.all.length
       chosen_category = Category.all[input.to_i-1]
+      puts "What would you prefer?"
       stock_list_menu
+      
     end
   end
   
   def stock_list_menu
-    puts "What  "
+    puts "Type 1 to see all stocks in your category."
+    puts "Type 2 to see the top nine stocks in your category."
+    puts "Type 3 to see the bottom nine performing stocks in your category."
+    puts "To return to the preveious menu type 'b'."
+    
+    input
+    
+    case input
+    
+    when "1"
+     #=> all stocks
+    when "2"
+      #=> top 9
+    when "3"
+      #=> bottom 9
+    when .upcase == 'B'
+      
+    else 
+      puts "Invalid Input"
+      stock_list_menu
+    end
+  end
       
       
   
