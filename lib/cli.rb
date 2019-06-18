@@ -36,8 +36,6 @@ class Cli
     end
   end
   
-  
-  
   def self.general_stock_menu
     puts "We have a wide selection of stock categories."
     Category.list
@@ -101,40 +99,53 @@ class Cli
     if Patron.all.include?(username) == false
       username_error
     else
-      puts "Please enter your password."
+      password_check(username)
+    end
+  end
+  
+  def self.password_check (username)
+    puts "Please enter your password."
       
-      input = gets.strip
-      
-      if Patron.all.select(|user| user.username == username).password == input
+    input = gets.strip
+    
+    if Patron.all.select(|user| user.username == username).password == input
       puts "Welcome #{username}!"
       username
-      else
-        password_error
-      end
+    else
+      password_error
     end
   end
   
   def self.username_error
-    puts "The username you entered does not exist in our records.  Please type 1 to try again, or type 0 to return to the previous menu."
+    puts "The username you entered does not exist in our records.  Please type 1 to try again, type 2 to create a new account, or type 0 to return to the previous menu."
     
     input = gets.strip
     
-    if input == "1"
+    case input
+    when "1"
       log_in
-    elsif input == "0"
+    when "2"
+      create_new_patron
+    when "0"
       start
     else 
       puts "Invalid Input."
       username_error
     end
   end
-      
-    
-    
-  end
   
-  def self.password_error
+  def self.password_error (username)
+    puts "The password you enetered is incorrect."
+    puts "Type 1 to try again or type 0 to return to the previous menu."
     
+    input = gets.strip
+    
+    case input
+    when "1"
+      password_check(username)
+    when "0"
+      start
+    end
   end
   
   def self.create_new_patron
