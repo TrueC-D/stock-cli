@@ -98,12 +98,38 @@ class Cli
   def self.log_in
     puts "Please enter your username."
     username = gets.strip
-    if Patron.all.include?
-    
-    
+    if Patron.all.include?(username) == false
+      username_error
+    else
+      puts "Please enter your password."
+      
+      input = gets.strip
+      
+      if Patron.all.select(|user| user.username == username).password == input
+      puts "Welcome #{username}!"
+      username
+      else
+        password_error
+      end
+    end
   end
   
   def self.username_error
+    puts "The username you entered does not exist in our records.  Please type 1 to try again, or type 0 to return to the previous menu."
+    
+    input = gets.strip
+    
+    if input == "1"
+      log_in
+    elsif input == "0"
+      start
+    else 
+      puts "Invalid Input."
+      username_error
+    end
+  end
+      
+    
     
   end
   
