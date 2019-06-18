@@ -28,8 +28,6 @@ class Cli
     when "2"
       puts "You will need to be logged in to access the requested information."
       log_in_or_create_menu
-      puts "What type of stock would you like to buy?"
-      general_stock_menu
     else
       puts "Invalid input"
       top_menu
@@ -134,7 +132,7 @@ class Cli
     end
   end
   
-  def self.password_error (username)
+  def self.password_error(username)
     puts "The password you enetered is incorrect."
     puts "Type 1 to try again or type 0 to return to the previous menu."
     
@@ -149,9 +147,19 @@ class Cli
   end
   
   def self.create_new_patron
+    puts "Please enter your desired username."
     
+    username = gets.strip
+    
+    puts "Please create and enter a password for your account."
+    
+    password = gets.strip
+    
+    username = Patron.new(username, password)
+    
+    puts "Welcome #{username} to your new account!"
+    username
   end
-      
   
 end
 
