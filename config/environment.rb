@@ -6,7 +6,8 @@ require 'open-uri'
 Bundler.require(:default, :development)
 
 require_all './lib'
-username = "test".to_sym
+
+username = "test"
 username = Patron.new("test", "password")
 binding.pry
 

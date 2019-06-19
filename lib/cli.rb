@@ -94,11 +94,15 @@ class Cli
   def self.log_in
     puts "Please enter your username."
     username = gets.strip
-    if Patron.all.include?(username) == false
+    if username_search(username) == nil
       username_error
     else
       password_check(username)
     end
+  end
+  
+  def self.username_search(username)
+    Patron.all.find {|element| element.username == username}
   end
   
   def self.password_check (username)
@@ -106,7 +110,7 @@ class Cli
       
     input = gets.strip
     
-    if Patron.all.select{|user| user.username == username}.password == input
+    if username_search(username).password == input
       puts "Welcome #{username}!"
       username
     else

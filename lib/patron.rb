@@ -13,6 +13,10 @@ class Patron
     @@all
   end
   
+  def self.find_by(username)
+    self.all.find{|element| element.username == username}
+  end
+  
   def categories(stock)
     
   end
