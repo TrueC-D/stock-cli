@@ -155,7 +155,7 @@ class Cli
     
     password = gets.strip
     
-    username = Patron.new(username, password)
+    Patron.new(username, password)
     
     puts "Welcome #{username} to your new account!"
     username
