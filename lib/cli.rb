@@ -45,15 +45,41 @@ class Cli
     elsif input.to_i > 0 && input.to_i <= scraper.all.length
       chosen_category = Category.all[input.to_i-1]
       puts "What would you prefer?"
-      stock_list_menu
+      stock_list_menu(general_stock_menu)
     end
   end
   
-  def self.stock_list_menu
+  def self.personal_stock_menu(username)
+    puts "What would you like to do?"
+    puts "Type 1 to buy stocks."
+    puts "Type 2 to sell stocks."
+    puts "Type 3 to view your personal stock information."
+    puts "To log out and return to the main menu type 00"
+    
+    input = gets.strip
+    
+    case input
+    
+    when "1"
+      puts "What type of stocks would you like to buy?"
+      stock_list_menu(personal_stock_menu(username), username)
+    when "2"
+      stock_list_menu(personal_stock_menu(username), username)
+    when "3"
+      
+    when "00"
+      start
+    else
+      puts "Invalid input."
+      personal_stock_menu(username)
+  end
+  
+  def self.stock_list_menu(origin, username = nil)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
     puts "Type 3 to see the bottom nine performing stocks in your category."
-    puts "Type 0 to return to the preveious menu."
+    puts "Type 0 to return to the previous menu."
+    
     
     input = gets.strip
     
@@ -66,10 +92,10 @@ class Cli
     when "3"
       Stock_list.bottom_9(input)
     when "0"
-      general_stock_menu
+      origin
     else 
       puts "Invalid Input"
-      stock_list_menu
+      stock_list_menu(origin, username = nil)
     end
   end
   
@@ -111,7 +137,7 @@ class Cli
     
     if username_search(username).password == input
       puts "Welcome #{username}!"
-      username
+      personal_stock_menu(username)
     else
       password_error(username)
     end
@@ -158,7 +184,7 @@ class Cli
       password = gets.strip
       Patron.new(username, password)
       puts "Welcome #{username} to your new account!"
-      username
+      personal_stock_menu(username)
     else 
       puts "Error. This user already exists."
       username_already_exists
