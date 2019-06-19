@@ -68,7 +68,7 @@ class Cli
       stock_list_menu(personal_stock_menu(username), username)
     when "3"
       puts "Here is the information regarding your personal stocks"
-      username_search(username).stocks
+      username_search(username).display_stocks
     when "00"
       start
     else
