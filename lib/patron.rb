@@ -6,6 +6,7 @@ class Patron
     @username = username
     @password = password
     @stocks = []
+    @@all << self
   end
   
   def self.all

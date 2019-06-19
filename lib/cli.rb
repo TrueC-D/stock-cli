@@ -106,7 +106,7 @@ class Cli
       
     input = gets.strip
     
-    if Patron.all.select(|user| user.username == username).password == input
+    if Patron.all.select{|user| user.username == username}.password == input
       puts "Welcome #{username}!"
       username
     else
