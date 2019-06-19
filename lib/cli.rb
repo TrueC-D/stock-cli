@@ -64,9 +64,11 @@ class Cli
       puts "What type of stocks would you like to buy?"
       stock_list_menu(personal_stock_menu(username), username)
     when "2"
+      puts "What type of stocks would you like to sell?"
       stock_list_menu(personal_stock_menu(username), username)
     when "3"
-      
+      puts "Here is the information regarding your personal stocks"
+      username_search(username).stocks
     when "00"
       start
     else

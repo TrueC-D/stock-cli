@@ -17,6 +17,9 @@ class Patron
     self.all.find{|element| element.username == username}
   end
   
+  def display_stocks
+    self.stocks.each.with_index(send{("#{key}="), value)}
+  
   def categories(stock)
     
   end
