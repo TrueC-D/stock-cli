@@ -33,7 +33,7 @@ class Cli
     end
   end
   
-  def self.general_stock_menu
+  def self.general_stock_menu(origin, username = nil)
     puts "We have a wide selection of stock categories."
     Category.list
     puts "Type 0 to return to the preveious menu."
@@ -41,11 +41,13 @@ class Cli
     input = gets.strip
       
     if input == "0"
+      origin
+    elsif input == "00"
       start
     elsif input.to_i > 0 && input.to_i <= scraper.all.length
       chosen_category = Category.all[input.to_i-1]
       puts "What would you prefer?"
-      stock_list_menu(general_stock_menu)
+      stock_list_menu(general_stock_menu(origin, username), username)
     end
   end
   
@@ -54,7 +56,7 @@ class Cli
     puts "Type 1 to buy stocks."
     puts "Type 2 to sell stocks."
     puts "Type 3 to view your personal stock information."
-    puts "To log out and return to the main menu type 00"
+    puts "At any time, to log out and return to the main menu type 00"
     
     input = gets.strip
     
@@ -62,10 +64,10 @@ class Cli
     
     when "1"
       puts "What type of stocks would you like to buy?"
-      stock_list_menu(personal_stock_menu(username), username)
+      general_stock_menu(personal_stock_menu(username), username)
     when "2"
       puts "What type of stocks would you like to sell?"
-      stock_list_menu(personal_stock_menu(username), username)
+      general_stock_menu(personal_stock_menu(username), username)
     when "3"
       puts "Here is the information regarding your personal stocks"
       username_search(username).display_stocks
@@ -95,6 +97,8 @@ class Cli
       Stock_list.bottom_9(input)
     when "0"
       origin
+    when "00"
+      start
     else 
       puts "Invalid Input"
       stock_list_menu(origin, username = nil)

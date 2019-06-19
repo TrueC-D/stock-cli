@@ -18,8 +18,8 @@ class Patron
   end
   
   def display_stocks
-    self.stocks.each.with_index(send{("#{key}="), value)}
-  
+    self.stocks.each.with_index{|element, index| puts "#{index}. #{element}"}
+  end
   def categories(stock)
     
   end
