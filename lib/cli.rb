@@ -2,7 +2,6 @@ class Cli
   
   def call
     Scraper.scrape_for_categories.each{|element| Category.new(element)}
-    
     start
   end
   
@@ -114,7 +113,7 @@ class Cli
       puts "Welcome #{username}!"
       username
     else
-      password_error
+      password_error(username)
     end
   end
   
@@ -154,15 +153,29 @@ class Cli
     puts "Please enter your desired username."
     
     username = gets.strip
+    if username_search(username) == nil
+      puts "Please create and enter a password for your account."
+      password = gets.strip
+      Patron.new(username, password)
+      puts "Welcome #{username} to your new account!"
+      username
+    else 
+      puts "Error. This user already exists."
+      username_already_exists
+  end
+  
+  def self.username_already_exists
+    puts "The username you enetered already exists."
+    puts "Type 1 to enter a new username or type 0 to return to the start menu."
     
-    puts "Please create and enter a password for your account."
+    input = gets.strip
     
-    password = gets.strip
-    
-    Patron.new(username, password)
-    
-    puts "Welcome #{username} to your new account!"
-    username
+    case input
+    when "1"
+      create_new_patron
+    when "0"
+      start
+    end
   end
   
 end
