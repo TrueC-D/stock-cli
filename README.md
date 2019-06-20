@@ -1,11 +1,3 @@
-#To do 
-  Original page that has the categories leads to a sublink, click sub link then get to page with listed stocks.  Need to scrape 1) category names, category links on 1st page, 1.5) each.with_index, collect category names and let user select category by entering the associated index key.  Use .send method 2) main category link on 2nd page, 3) Stock names on 3rd page, 4) associate indecies with this name, and 4) % change for associated stock. 
-  
-  Establish a Has many through relationship.  Patrons have many stocks.  Patrons have many categories through stocks.  Stocks belong to Patrons, Stocks belong to categories.  Categories have many stocks, categories have many stocks through patrons.
-  
-  Most important to hilight is that patrons have many stocks through categoreies.
-
-
 # Stock::Cli
 
 To run this progamr type `./bin/run`

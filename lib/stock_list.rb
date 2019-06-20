@@ -9,6 +9,7 @@ class Stock_list
     @category = Category.all[category_index]
     @@all << self
   end
+  
   def self.all
     @@all
   end

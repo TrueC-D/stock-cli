@@ -6,7 +6,7 @@ class Category
   @@all = []
   
   def initialize(category_hash)
-    category_hash.each{|key, value| self.send(("#{key}="), value)}
+    category_hash.each{|key, value| self.send("#{key}=", value)}
     @@all << self
   end
   
