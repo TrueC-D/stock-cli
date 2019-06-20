@@ -40,8 +40,7 @@ class Cli
   def self.personal_stock_menu(username)
     puts "What would you like to do?"
     puts "Type 1 to buy stocks."
-    puts "Type 2 to sell stocks."
-    puts "Type 3 to view your personal stock information."
+    puts "Type 2 to view your personal stock information or view and sell stocks."
     puts "At any time, to log out and return to the main menu type 00"
     
     input = gets.strip
@@ -52,11 +51,9 @@ class Cli
       puts "What type of stocks would you like to buy?"
       general_stock_menu(personal_stock_menu(username), username)
     when "2"
-      puts "What type of stocks would you like to sell?"
-      general_stock_menu(personal_stock_menu(username), username)
-    when "3"
       puts "Here is the information regarding your personal stocks"
       username_search(username).display_stocks
+      
     when "00"
       start
     else
@@ -81,17 +78,7 @@ class Cli
       stock_list_menu(general_stock_menu(origin, username), username, category_index)
     end
   end
-
-  def self.stock_select
-  end
   
-  def self.buy_stock(list)
-        list #=> Stock_list.all_stocks_by_category(category_input)
-        username_search(username).stocks << stock_select
-  end
-
-  def self.sell_stock
-  end
   def self.stock_list_menu(origin, username = nil, category_index)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
@@ -106,12 +93,12 @@ class Cli
     when "1"
       list = Stock_list.all_stocks_by_category(category_index)
       if origin == general_stock_menu(personal_stock_menu(username))
-        buy_stock(Stock_list.all_stocks_by_category(category_index))
+        buy_stock(list)
       else
-        Stock_list.all_stocks_by_category(category_index)
+        list
       end
     when "2"
-      Stock_list.top_9(category_index)
+      list = Stock_list.top_9(category_index)
     when "3"
       Stock_list.bottom_9(category_index)
     when "0"
@@ -124,6 +111,37 @@ class Cli
     end
   end
   
+  def self.stock_select
+  end
+  
+  def self.buy_stock(list)
+        list #=> Stock_list.all_stocks_by_category(category_input)
+        username_search(username).stocks << stock_select
+  end
+
+  def self.sell_stocks?
+    puts "Would you like to sell stocks?"
+    puts "If yes, type 1, if no type 2."
+    puts "Type 0 to return to your user menu."
+    input = gets.strip
+    case input
+    when "1"
+      stock_selling
+    when "2"
+      
+    when "01"
+      personal_stock_menu(username)
+    when "00"
+      start
+    else 
+      puts "Invalid input."
+      sell_stocks?
+    end
+  end
+  
+  def self.stock_selling
+    
+  end
   def self.log_in_or_create_menu
     puts "If your have an existing acount type 1 to log in. Otherwise type 2 to create a new account or type 0 to return to the previous menu."
     input = gets.strip
