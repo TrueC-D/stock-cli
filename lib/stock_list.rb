@@ -10,10 +10,10 @@ class Stock_list
   end
 
   def self.find_by_title(title)
-    Stock_list.all.find {|element| element.title == title}
+    self.all.find {|element| element.title == title}
   end
   
-  def find_by_title_or_create(title, patron, category_hash)
+  def self.find_by_title_or_create(title, patron, category_index, hash)
     self.find_by_title(title) || self.new(patron, category_index, hash)
   end
   

@@ -16,15 +16,13 @@ class Patron
     self.all.find{|element| element.username == username}
   end
   
-  def buy_stocks(buy_stocks_index_arr, list)
-    
+  def buy_stocks(buy_stocks_index_arr, list, category_index)
     buy_stocks_index_arr.each do|index| 
-      list[index]
-    # self.stocks.each{|stock| stock.patrons << list[index]}
-    
-    # def find_by_title_or_create(title, patron, category_hash)
-    #   self.find_by_title(title) || self.new(patron, category_index, hash)
-  #   end
+      Stock_list.find_by_title_or_create(list[index][:title], self, category_index, list[index])
+    end
+    if Stock_list.find_by_title(title).patrons.include?(self) == false
+      Stock_list.find_by_title(title).patrons << self
+    end
   end
   
   def sell_stocks(selling_stocks_index_arr)
