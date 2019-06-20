@@ -48,7 +48,7 @@ class Cli
     
     when "1"
       puts "What type of stocks would you like to buy?"
-      general_stock_menu("personal_stock_menu(username)", username)
+      general_stock_menu(username)
     when "2"
       display_and_sell_stocks(username)
       
@@ -60,7 +60,7 @@ class Cli
     end
   end
   
-  def self.general_stock_menu(origin, username = nil)
+  def self.general_stock_menu(username = nil)
     puts "We have a wide selection of stock categories."
     Category.list
     puts "Type 0 to return to the preveious menu."
@@ -74,11 +74,11 @@ class Cli
     elsif (category_input > 0 && category_input <= Category.list.length)
       category_index = category_input-1
       puts "What would you prefer?"
-      stock_list_menu("general_stock_menu(#{origin}, #{username})", username, category_index)
+      stock_list_menu(username, category_index)
     end
   end
   
-  def self.stock_list_menu(origin, username = nil, category_index)
+  def self.stock_list_menu(username = nil, category_index)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top performing stocks in your category."
     puts "Type 3 to see the bottom performing stocks in your category."
@@ -91,20 +91,23 @@ class Cli
     
     when "1"
       list = Stock_list.all_stocks_by_category(category_index)
-      stock_select(origin, list, username, category_index)
+      stock_select(list, username, category_index)
     when "2"
       list = Stock_list.top_9(category_index)
-      stock_select(origin, list, username, category_index)
+      stock_select(list, username, category_index)
     when "3"
       list = Stock_list.bottom_9(category_index)
-      stock_select(origin, list, username, category_index)
+      stock_select(list, username, category_index)
     when "0"
-      origin.gsub('"', '')
+      if username !=nil 
+        general_stock_menu(username)
+        
+        
     when "00"
       start
     else 
       puts "Invalid Input"
-      stock_list_menu(origin, username, category_index)
+      stock_list_menu(username, category_index)
     end
   end
   
@@ -114,16 +117,16 @@ class Cli
     sell_stocks?(username)
   end
   
-  def self.stock_select(origin, list, username = nil, category_index)
+  def self.stock_select(list, username = nil, category_index)
     if username != nil
       list
-      buy_stock("stock_list_menu(#{origin}, #{category_index})", list, username, category_index)
+      buy_stock(list, username, category_index)
     else
       list
     end
   end
   
-  def self.buy_stock(origin, list, username, category_index)
+  def self.buy_stock(list, username, category_index)
     puts "For each stock you want to buy, please type the stock number separated by a comma."
     puts "Type 0 to return to the previous menu."
     puts "Example:"
@@ -144,7 +147,7 @@ class Cli
       start
     elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}
       puts "Invalid input. Please refer to example."
-      buy_stock(origin, list, username, category_index)
+      buy_stock(list, username, category_index)
     else
       buy_stocks_index_arr = input_arr.collect{|element| element.to_i-1}
       username_search(username).buy_stocks(buy_stocks_index_arr, list, category_index)
