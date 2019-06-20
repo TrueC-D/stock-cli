@@ -144,9 +144,10 @@ class Cli
      stock_list_menu(username, category_index)
     elsif input == "00"
       start
-    elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}
+    elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > list.length}
       puts "Invalid input. Please refer to example."
       buy_stock(list, username, category_index)
+      
     else
       buy_stocks_index_arr = input_arr.collect{|element| element.to_i-1}
       username_search(username).buy_stocks(buy_stocks_index_arr, list, category_index)

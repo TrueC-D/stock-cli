@@ -1,6 +1,6 @@
 require_relative '../config/environment'
 class Stock_list
-  attr_accessor :category, :patron, :title, :percent_change
+  attr_accessor :category, :patrons, :title, :percent_change, :company_name
   @@all = []
   def initialize (patron, category_index, hash)
     hash.each{|key, value| self.send(("#{key}="), value)}
@@ -12,12 +12,15 @@ class Stock_list
   def self.all
     @@all
   end
-  def self.find_by_title(title)
-    self.all.find {|element| element.title == title}
+  def patrons
+    @patrons
+  end
+  def self.find_by_name(company_name)
+    self.all.find{|element| element.company_name == company_name}
   end
   
-  def self.find_by_title_or_create(title, patron, category_index, hash)
-    self.find_by_title(title) || self.new(patron, category_index, hash)
+  def self.find_by_name_or_create(company_name, patron, category_index, hash)
+    self.find_by_name(company_name) || self.new(patron, category_index, hash)
   end
   
   def self.top_9(category_index)

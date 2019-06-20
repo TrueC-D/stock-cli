@@ -1,6 +1,6 @@
 require_relative '../config/environment'
 class Patron
-  attr_accessor :username, :password, :stocks
+  attr_accessor :username, :password, :stocks, :company_name
   
   @@all = []
   
@@ -20,11 +20,13 @@ class Patron
   
   def buy_stocks(buy_stocks_index_arr, list, category_index)
     buy_stocks_index_arr.each do|index| 
-      Stock_list.find_by_title_or_create(list[index][:title], self, category_index, list[index])
+      Stock_list.find_by_name_or_create(list[index][:company_name], self, category_index, list[index])
     end
-    if Stock_list.find_by_title(title).patrons.include?(self) == false
-      Stock_list.find_by_title(title).patrons << self
-    end
+    
+    # if Stock_list.find_by_name(:company_name).patrons.include?(self) == false
+      
+    #   Stock_list.find_by_name(:company_name).patrons << self
+    # end
   end
   
   def sell_stocks(selling_stocks_index_arr)
@@ -32,7 +34,7 @@ class Patron
   end
   
   def display_stocks
-    self.stocks.each.with_index{|element, index| puts "#{index}. #{element}"}
+    self.stocks.each.with_index(1){|element, index| puts "#{index}. #{element.company_name} with a percent change of #{element.percent_change}"
   end
   
   def categories
