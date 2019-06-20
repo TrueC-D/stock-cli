@@ -20,8 +20,8 @@ class Patron
   def display_stocks
     self.stocks.each.with_index{|element, index| puts "#{index}. #{element}"}
   end
-  def categories(stock)
-    
+  def categories
+    self.stocks.collect {|stock| stock.category}
   end
 end
 

@@ -1,13 +1,11 @@
 class Category
-  attr_accessor :title, :category_url, :category_extension, :patron
+  attr_accessor :title, :category_url, :category_extension
   
   @@all = []
   
   def initialize(category_hash)
     category_hash.each{|key, value| self.send(("#{key}="), value)}
-    @patron = patron
     @@all << self
-    binding.pry
   end
   
   def self.list
@@ -18,7 +16,12 @@ class Category
     @@all
   end
   
+  def patrons
+    self.stocks.collect {|stock| stock.patrons}
+  end
   
+  def stocks
+    Stock_list.all.select{|stock| stock.category == self}
   
 end
 
