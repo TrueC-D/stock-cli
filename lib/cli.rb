@@ -39,15 +39,14 @@ class Cli
     puts "Type 0 to return to the preveious menu."
       
     input = gets.strip
-      
+    category_input = input.to_i 
     if input == "0"
       origin
     elsif input == "00"
       start
-    elsif input.to_i > 0 && input.to_i <= scraper.all.length
-      chosen_category = Category.all[input.to_i-1]
+    elsif category_input > 0 && category_input <= scraper.all.length
       puts "What would you prefer?"
-      stock_list_menu(general_stock_menu(origin, username), username)
+      stock_list_menu(general_stock_menu(origin, username), username, category_input)
     end
   end
   
@@ -78,7 +77,7 @@ class Cli
       personal_stock_menu(username)
   end
   
-  def self.stock_list_menu(origin, username = nil)
+  def self.stock_list_menu(origin, username = nil, category_input)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
     puts "Type 3 to see the bottom nine performing stocks in your category."
@@ -90,11 +89,16 @@ class Cli
     case input
     
     when "1"
-      Stock_list.all_stocks_by_category(input)
+      if origin == general_stock_menu(personal_stock_menu(username))
+        Stock_list.all_stocks_by_category(category_input)
+        stock_select
+      else
+      Stock_list.all_stocks_by_category(category_input)
+      
     when "2"
-      Stock_list.top_9(input)
+      Stock_list.top_9(category_input)
     when "3"
-      Stock_list.bottom_9(input)
+      Stock_list.bottom_9(category_input)
     when "0"
       origin
     when "00"
