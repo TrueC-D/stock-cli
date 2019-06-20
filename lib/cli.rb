@@ -5,7 +5,7 @@ class Cli
   def self.call 
     loading
     start
-    binding.pry
+    puts "Session Finished"
   end
   
   def self.loading
@@ -80,8 +80,8 @@ class Cli
   
   def self.stock_list_menu(origin, username = nil, category_index)
     puts "Type 1 to see all stocks in your category."
-    puts "Type 2 to see the top nine stocks in your category."
-    puts "Type 3 to see the bottom nine performing stocks in your category."
+    puts "Type 2 to see the top performing stocks in your category."
+    puts "Type 3 to see the bottom performing stocks in your category."
     puts "Type 0 to return to the previous menu."
     
     
