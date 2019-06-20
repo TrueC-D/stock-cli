@@ -5,7 +5,6 @@ class Patron
   def initialize(username, password)
     @username = username
     @password = password
-    @stocks = []
     @@all << self
   end
   
@@ -22,6 +21,10 @@ class Patron
   end
   def categories
     self.stocks.collect {|stock| stock.category}
+  end
+  
+  def stocks
+    Stock_list.all.select{|stock| stock.patrons.include?(self)}
   end
 end
 

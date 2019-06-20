@@ -1,12 +1,11 @@
 class Stock_list
   attr_accessor :category, :patron, :title
   @@all = []
-  def initialize (patron, hash)
+  def initialize (patron, category_index, hash)
+    hash.each{|key, value| self.send(("#{key}="), value)}
     @patrons = []
     @patrons << patron
-    @category
-    @title
-    @percent_change
+    @category = Category.all[category_index]
     @@all << self
   end
   

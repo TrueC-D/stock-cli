@@ -33,23 +33,6 @@ class Cli
     end
   end
   
-  def self.general_stock_menu(origin, username = nil)
-    puts "We have a wide selection of stock categories."
-    Category.list
-    puts "Type 0 to return to the preveious menu."
-      
-    input = gets.strip
-    category_input = input.to_i 
-    if input == "0"
-      origin
-    elsif input == "00"
-      start
-    elsif category_input > 0 && category_input <= scraper.all.length
-      puts "What would you prefer?"
-      stock_list_menu(general_stock_menu(origin, username), username, category_input)
-    end
-  end
-  
   def self.personal_stock_menu(username)
     puts "What would you like to do?"
     puts "Type 1 to buy stocks."
@@ -76,6 +59,25 @@ class Cli
       puts "Invalid input."
       personal_stock_menu(username)
   end
+  
+  def self.general_stock_menu(origin, username = nil)
+    puts "We have a wide selection of stock categories."
+    Category.list
+    puts "Type 0 to return to the preveious menu."
+      
+    input = gets.strip
+    category_input = input.to_i 
+    if input == "0"
+      origin
+    elsif input == "00"
+      start
+    elsif category_input > 0 && category_input <= scraper.all.length
+      category_index = category_input-1
+      puts "What would you prefer?"
+      stock_list_menu(general_stock_menu(origin, username), username, category_index)
+    end
+  end
+
   def self.stock_select
   end
   
@@ -86,7 +88,7 @@ class Cli
 
   def self.sell_stock
   end
-  def self.stock_list_menu(origin, username = nil, category_input)
+  def self.stock_list_menu(origin, username = nil, category_index)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
     puts "Type 3 to see the bottom nine performing stocks in your category."
@@ -98,16 +100,16 @@ class Cli
     case input
     
     when "1"
-      list = Stock_list.all_stocks_by_category(category_input)
+      list = Stock_list.all_stocks_by_category(category_index)
       if origin == general_stock_menu(personal_stock_menu(username))
-        buy_stock(Stock_list.all_stocks_by_category(category_input))
+        buy_stock(Stock_list.all_stocks_by_category(category_index))
       else
-        Stock_list.all_stocks_by_category(category_input)
+        Stock_list.all_stocks_by_category(category_index)
       end
     when "2"
-      Stock_list.top_9(category_input)
+      Stock_list.top_9(category_index)
     when "3"
-      Stock_list.bottom_9(category_input)
+      Stock_list.bottom_9(category_index)
     when "0"
       origin
     when "00"
