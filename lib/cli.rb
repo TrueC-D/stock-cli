@@ -76,7 +76,16 @@ class Cli
       puts "Invalid input."
       personal_stock_menu(username)
   end
+  def self.stock_select
+  end
   
+  def self.buy_stock(list)
+        list #=> Stock_list.all_stocks_by_category(category_input)
+        username_search(username).stocks << stock_select
+  end
+
+  def self.sell_stock
+  end
   def self.stock_list_menu(origin, username = nil, category_input)
     puts "Type 1 to see all stocks in your category."
     puts "Type 2 to see the top nine stocks in your category."
@@ -89,12 +98,12 @@ class Cli
     case input
     
     when "1"
+      list = Stock_list.all_stocks_by_category(category_input)
       if origin == general_stock_menu(personal_stock_menu(username))
-        Stock_list.all_stocks_by_category(category_input)
-        stock_select
+        buy_stock(Stock_list.all_stocks_by_category(category_input))
       else
-      Stock_list.all_stocks_by_category(category_input)
-      
+        Stock_list.all_stocks_by_category(category_input)
+      end
     when "2"
       Stock_list.top_9(category_input)
     when "3"
