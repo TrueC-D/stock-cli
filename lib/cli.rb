@@ -14,10 +14,6 @@ class Cli
     top_menu
   end
   
-  def self.input
-    gets.strip
-  end
-  
   def self.top_menu
     puts "To search for general stock information, type 1"
     puts "Type 2 to buy stock, sell stock, or view information regarding your personal stocks."
@@ -91,7 +87,7 @@ class Cli
     
     when "1"
       list = Stock_list.all_stocks_by_category(category_index)
-      stock_select(list)
+      stock_select(origin, list, username, category_index))
     when "2"
       list = Stock_list.top_9(category_index)
       stock_select(list)
@@ -104,7 +100,7 @@ class Cli
       start
     else 
       puts "Invalid Input"
-      stock_list_menu(origin, username = nil)
+      stock_list_menu(origin, username, category_index)
     end
   end
   
@@ -113,11 +109,12 @@ class Cli
     username_search(username).display_stocks
     sell_stocks?(username)
   end
-  def self.stock_select(list)
-    if origin == general_stock_menu(personal_stock_menu(username))
-        buy_stock(origin, list, username, category_index)
-      else
-        list
+  def self.stock_select(origin, list, username = nil, category_index)
+    if username != nil
+      list
+      buy_stock(stock_list_menu(origin, category_index), list, username, category_index)
+    else
+      list
     end
   end
   
