@@ -1,5 +1,6 @@
 class Patron
   attr_accessor :username, :password, :stocks
+  
   @@all = []
   
   def initialize(username, password)

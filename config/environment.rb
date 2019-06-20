@@ -7,9 +7,7 @@ Bundler.require(:default, :development)
 
 require_all './lib'
 
-username = "test"
-username = Patron.new("test", "password")
-binding.pry
+Cli.loading
 
 # Scraper.scrape_full_company_lists("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
 

@@ -7,6 +7,7 @@ class Cli
   
   def self.loading
     Scraper.scrape_for_categories.each{|element| Category.new(element)}
+    binding.pry
   end
   
   def self.start
@@ -54,6 +55,7 @@ class Cli
     else
       puts "Invalid input."
       personal_stock_menu(username)
+    end
   end
   
   def self.general_stock_menu(origin, username = nil)
@@ -67,7 +69,7 @@ class Cli
       origin
     elsif input == "00"
       start
-    elsif category_input > 0 && category_input <= scraper.all.length
+    elsif (category_input > 0 && category_input <= scraper.all.length)
       category_index = category_input-1
       puts "What would you prefer?"
       stock_list_menu(general_stock_menu(origin, username), username, category_index)
@@ -87,7 +89,7 @@ class Cli
     
     when "1"
       list = Stock_list.all_stocks_by_category(category_index)
-      stock_select(origin, list, username, category_index))
+      stock_select(origin, list, username, category_index)
     when "2"
       list = Stock_list.top_9(category_index)
       stock_select(list)
@@ -109,6 +111,7 @@ class Cli
     username_search(username).display_stocks
     sell_stocks?(username)
   end
+  
   def self.stock_select(origin, list, username = nil, category_index)
     if username != nil
       list
@@ -194,9 +197,8 @@ class Cli
       username_search(username).sell_stocks(sell_stocks_indexes)
       display_and_sell_stocks(username)
     end
-      
-    
   end
+  
   def self.log_in_or_create_menu
     puts "If your have an existing acount type 1 to log in. Otherwise type 2 to create a new account or type 0 to return to the previous menu."
     input = gets.strip
@@ -225,7 +227,7 @@ class Cli
   end
   
   def self.username_search(username)
-    Patron.all.find {|element| element.username == username}
+    Patron.all.find{|element| element.username == username}
   end
   
   def self.password_check (username)
@@ -286,6 +288,7 @@ class Cli
     else 
       puts "Error. This user already exists."
       username_already_exists
+    end
   end
   
   def self.username_already_exists

@@ -22,6 +22,7 @@ class Category
   
   def stocks
     Stock_list.all.select{|stock| stock.category == self}
+  end
   
 end
 

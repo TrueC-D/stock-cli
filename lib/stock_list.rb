@@ -24,7 +24,7 @@ class Stock_list
   end
   def self.bottom_9(category_index)
     list = Scraper.scrape_best_and_worst_performing(Category.all[category_index].category_url)[10..18]
-    list.category_url)[10..18].each.with_index(1){|company_hash,  index| puts "#{index}. #{company_hash[:title]} has a percent change of #{company_hash[:percent_change]}"}
+    list.each.with_index(1){|company_hash,  index| puts "#{index}. #{company_hash[:title]} has a percent change of #{company_hash[:percent_change]}"}
     list
   end
   def self.all_stocks_by_category(category_index)
