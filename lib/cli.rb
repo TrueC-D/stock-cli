@@ -26,7 +26,7 @@ class Cli
     case input
     when "1"
       puts "What type of stock would you like to search for?"
-      general_stock_menu
+      general_stock_menu("top_menu")
     when "2"
       puts "You will need to be logged in to access the requested information."
       log_in_or_create_menu
