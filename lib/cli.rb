@@ -168,6 +168,7 @@ class Cli
     else
       sell_stocks_indexes = input_arr.collect{ |element| element.to_i-1}
       username_search(username).sell_stocks(sell_stocks_indexes)
+      display_and_sell_stocks(username)
     end
       
     
