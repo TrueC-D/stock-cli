@@ -34,7 +34,7 @@ class Patron
   end
   
   def display_stocks
-    self.stocks.each.with_index(1){|element, index| puts "#{index}. #{element.company_name} with a percent change of #{element.percent_change}"
+    self.stocks.each.with_index(1){|element, index| puts "#{index}. #{element.company_name} with a percent change of #{element.percent_change}"}
   end
   
   def categories
