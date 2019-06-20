@@ -1,13 +1,15 @@
+require_relative "../config/environment"
+
 class Cli
   
-  def 
+  def self.call 
     loading
     start
+    binding.pry
   end
   
   def self.loading
     Scraper.scrape_for_categories.each{|element| Category.new(element)}
-    binding.pry
   end
   
   def self.start
@@ -46,7 +48,7 @@ class Cli
     
     when "1"
       puts "What type of stocks would you like to buy?"
-      general_stock_menu(personal_stock_menu(username), username)
+      general_stock_menu("personal_stock_menu(username)", username)
     when "2"
       display_and_sell_stocks(username)
       
@@ -66,13 +68,13 @@ class Cli
     input = gets.strip
     category_input = input.to_i 
     if input == "0"
-      origin
+      origin.gsub('"', '')
     elsif input == "00"
       start
     elsif (category_input > 0 && category_input <= scraper.all.length)
       category_index = category_input-1
       puts "What would you prefer?"
-      stock_list_menu(general_stock_menu(origin, username), username, category_index)
+      stock_list_menu("general_stock_menu(#{origin}, #{username})", username, category_index)
     end
   end
   
@@ -92,12 +94,12 @@ class Cli
       stock_select(origin, list, username, category_index)
     when "2"
       list = Stock_list.top_9(category_index)
-      stock_select(list)
+      stock_select(origin, list, username, category_index)
     when "3"
       list = Stock_list.bottom_9(category_index)
-      stock_select(list)
+      stock_select(origin, list, username, category_index)
     when "0"
-      origin
+      origin.gsub('"', '')
     when "00"
       start
     else 
@@ -115,7 +117,7 @@ class Cli
   def self.stock_select(origin, list, username = nil, category_index)
     if username != nil
       list
-      buy_stock(stock_list_menu(origin, category_index), list, username, category_index)
+      buy_stock("stock_list_menu(#{origin}, #{category_index})", list, username, category_index)
     else
       list
     end
@@ -137,7 +139,7 @@ class Cli
     input_arr = input.gsub(" ", "").split(",")
     
     if input == "0"
-      origin
+      origin.gsub('"', '')
     elsif input == "00"
       start
     elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}

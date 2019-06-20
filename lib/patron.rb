@@ -1,3 +1,4 @@
+require_relative '../config/environment'
 class Patron
   attr_accessor :username, :password, :stocks
   

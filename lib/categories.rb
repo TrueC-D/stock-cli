@@ -1,3 +1,5 @@
+require_relative '../config/environment'
+
 class Category
   attr_accessor :title, :category_url, :category_extension
   

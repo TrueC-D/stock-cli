@@ -7,7 +7,7 @@ Bundler.require(:default, :development)
 
 require_all './lib'
 
-Cli.loading
+Cli.call
 
 # Scraper.scrape_full_company_lists("http://bigcharts.marketwatch.com/industry/bigcharts-com/default.asp?symb=WSJMXUSAGRI")
 
