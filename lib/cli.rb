@@ -91,15 +91,13 @@ class Cli
     
     when "1"
       list = Stock_list.all_stocks_by_category(category_index)
-      if origin == general_stock_menu(personal_stock_menu(username))
-        buy_stock(list)
-      else
-        list
-      end
+      stock_select(list)
     when "2"
       list = Stock_list.top_9(category_index)
+      stock_select(list)
     when "3"
-      Stock_list.bottom_9(category_index)
+      list = Stock_list.bottom_9(category_index)
+      stock_select(list)
     when "0"
       origin
     when "00"
@@ -116,11 +114,40 @@ class Cli
     sell_stocks?(username)
   end
   def self.stock_select(list)
+    if origin == general_stock_menu(personal_stock_menu(username))
+        buy_stock(origin, list, username, category_index)
+      else
+        list
+    end
   end
   
-  def self.buy_stock(list)
-        list #=> Stock_list.all_stocks_by_category(category_input)
-        username_search(username).stocks << stock_select
+  def self.buy_stock(origin, list, username, category_index)
+    puts "For each stock you want to buy, please type the stock number separated by a comma."
+    puts "Type 0 to return to the previous menu."
+    puts "Example:"
+    puts "1. Stock A"
+    puts "2. Stock B"
+    puts "3. Stock C"
+    puts "To buy Stock A and C, type: 1,3"
+    
+    username_search(username).stocks
+    
+    input = gets.strip
+    
+    input_arr = input.gsub(" ", "").split(",")
+    
+    if input == "0"
+      origin
+    elsif input == "00"
+      start
+    elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}
+      puts "Invalid input. Please refer to example."
+      buy_stock(origin, list, username, category_index)
+    else
+      buy_stocks_index_arr = input_arr.collect{|element| element.to_i-1}
+      username_search(username).buy_stocks(buy_stocks_index_arr, list, category_index)
+      display_and_sell_stocks(username)
+    end
   end
 
   def self.sell_stocks?(username)
