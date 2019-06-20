@@ -111,7 +111,7 @@ class Cli
     end
   end
   
-  def self.stock_select
+  def self.stock_select(list)
   end
   
   def self.buy_stock(list)
@@ -119,27 +119,52 @@ class Cli
         username_search(username).stocks << stock_select
   end
 
-  def self.sell_stocks?
+  def self.sell_stocks?(username)
     puts "Would you like to sell stocks?"
     puts "If yes, type 1, if no type 2."
     puts "Type 0 to return to your user menu."
     input = gets.strip
     case input
     when "1"
-      stock_selling
+      stock_selling(username)
     when "2"
-      
-    when "01"
+      personal_stock_menu(username)
+    when "0"
       personal_stock_menu(username)
     when "00"
       start
     else 
       puts "Invalid input."
-      sell_stocks?
+      sell_stocks?(username)
     end
   end
   
-  def self.stock_selling
+  def self.stock_selling(username)
+    puts "For each stock you want to sell, please type the stock number separated by a comma."
+    puts "Type 0 to return to the user menu."
+    puts "Example:"
+    puts "1. Stock A"
+    puts "2. Stock B"
+    puts "3. Stock C"
+    puts "To sell Stock A and C, type: 1,3"
+    
+    username_search(username).stocks
+    
+    input = gets.strip
+    
+    input_arr = input.gsub(" ", "").split(",")
+    
+    if input == "0"
+      personal_stock_menu(username)
+    elsif input == "00"
+      start
+    elsif input_arr.any?{|element| element.to_i == false}
+    
+    else
+      "Invalid input. Please refer to example."
+      stock_selling(username)
+    end
+      
     
   end
   def self.log_in_or_create_menu
