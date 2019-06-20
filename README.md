@@ -8,9 +8,9 @@
 
 # Stock::Cli
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cli`. To experiment with that code, run `./bin/run` for an interactive prompt.
+To run this progamr type `./bin/run`
 
-TODO: Delete this and the text above, and describe your gem
+This gem will allow one to look up current stock information by category. You may also enter a simulation of create one's own account that takes a username and password and simulate 'buying' and 'selling' stocks.  No monetary transactions are actually made.  This gem does not influence the stock market. 
 
 ## Installation
 

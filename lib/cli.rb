@@ -1,8 +1,12 @@
 class Cli
   
-  def call
-    Scraper.scrape_for_categories.each{|element| Category.new(element)}
+  def 
+    loading
     start
+  end
+  
+  def self.loading
+    Scraper.scrape_for_categories.each{|element| Category.new(element)}
   end
   
   def self.start

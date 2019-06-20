@@ -16,9 +16,13 @@ class Patron
     self.all.find{|element| element.username == username}
   end
   
+  
+  end
+  
   def display_stocks
     self.stocks.each.with_index{|element, index| puts "#{index}. #{element}"}
   end
+  
   def categories
     self.stocks.collect {|stock| stock.category}
   end
