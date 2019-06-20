@@ -2,7 +2,8 @@ class Stock_list
   attr_accessor :category, :patron, :title
   @@all = []
   def initialize (patron, hash)
-    @patron
+    @patron = patron
+    @category
     @title
     @percent_change
     @@all << self
