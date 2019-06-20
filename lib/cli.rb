@@ -51,8 +51,7 @@ class Cli
       puts "What type of stocks would you like to buy?"
       general_stock_menu(personal_stock_menu(username), username)
     when "2"
-      puts "Here is the information regarding your personal stocks"
-      username_search(username).display_stocks
+      display_and_sell_stocks(username)
       
     when "00"
       start
@@ -111,6 +110,11 @@ class Cli
     end
   end
   
+  def self.display_and_sell_stocks(username)
+    puts "Here is the information regarding your personal stocks"
+    username_search(username).display_stocks
+    sell_stocks?(username)
+  end
   def self.stock_select(list)
   end
   
@@ -162,7 +166,8 @@ class Cli
       puts "Invalid input. Please refer to example."
       stock_selling(username)
     else
-      input_arr.each{ |element| .delete_at(element.to_i-1)
+      sell_stocks_indexes = input_arr.collect{ |element| element.to_i-1}
+      username_search(username).sell_stocks(sell_stocks_indexes)
     end
       
     
