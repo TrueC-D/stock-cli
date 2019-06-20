@@ -6,7 +6,7 @@ class Stock_list
     hash.each{|key, value| self.send(("#{key}="), value)}
     @patrons = []
     @patrons << patron
-    @category = Category.list[category_index]
+    @category = Category.all[category_index]
     @@all << self
   end
 
@@ -19,18 +19,18 @@ class Stock_list
   end
   
   def self.top_9(category_index)
-    list = Scraper.scrape_best_and_worst_performing(Category.list[category_index].category_url)[1..9]
+    list = Scraper.scrape_best_and_worst_performing(Category.all[category_index].category_url)[1..9]
     list.each.with_index(1){|company_hash,  index| puts "#{index}. #{company_hash[:title]} has a percent change of #{company_hash[:percent_change]}"}
     list
   end
   def self.bottom_9(category_index)
-    list = Scraper.scrape_best_and_worst_performing(Category.list[category_index].category_url)[10..18]
+    list = Scraper.scrape_best_and_worst_performing(Category.all[category_index].category_url)[10..18]
     list.each.with_index(1){|company_hash,  index| puts "#{index}. #{company_hash[:title]} has a percent change of #{company_hash[:percent_change]}"}
     list
   end
   def self.all_stocks_by_category(category_index)
-    list = Scraper.scrape_full_company_lists(Category.list[category_index].category_url)
-    list.each.with_index(1){|company, index| puts "#{index}. #{company[:title]} has a percent change of #{company_hash[:percent_change]}"}
+    list = Scraper.scrape_full_company_lists(Category.all[category_index].category_url)
+    list.each.with_index(1){|company, index| puts "#{index}. #{company[:title]} has a percent change of #{company[:percent_change]}"}
     list
   end
 end

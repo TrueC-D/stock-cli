@@ -71,7 +71,7 @@ class Cli
       origin.gsub('"', '')
     elsif input == "00"
       start
-    elsif (category_input > 0 && category_input <= scraper.all.length)
+    elsif (category_input > 0 && category_input <= Category.list.length)
       category_index = category_input-1
       puts "What would you prefer?"
       stock_list_menu("general_stock_menu(#{origin}, #{username})", username, category_index)
