@@ -8,6 +8,10 @@ class Stock_list
     @category = Category.all[category_index]
     @@all << self
   end
+
+  def self.find_by_title(title)
+    Stock_list.all.find {|element| element.title == title}
+  end
   
   def find_by_title_or_create(title, patron, category_hash)
     self.find_by_title(title) || self.new(patron, category_index, hash)

@@ -158,11 +158,11 @@ class Cli
       personal_stock_menu(username)
     elsif input == "00"
       start
-    elsif input_arr.any?{|element| element.to_i == false}
-    
-    else
-      "Invalid input. Please refer to example."
+    elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}
+      puts "Invalid input. Please refer to example."
       stock_selling(username)
+    else
+      input_arr.each{ |element| .delete_at(element.to_i-1)
     end
       
     
