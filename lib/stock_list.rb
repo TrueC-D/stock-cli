@@ -9,7 +9,9 @@ class Stock_list
     @category = Category.all[category_index]
     @@all << self
   end
-
+  def self.all
+    @@all
+  end
   def self.find_by_title(title)
     self.all.find {|element| element.title == title}
   end

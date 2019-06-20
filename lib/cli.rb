@@ -26,7 +26,7 @@ class Cli
     case input
     when "1"
       puts "What type of stock would you like to search for?"
-      general_stock_menu("top_menu")
+      general_stock_menu
     when "2"
       puts "You will need to be logged in to access the requested information."
       log_in_or_create_menu
@@ -68,7 +68,11 @@ class Cli
     input = gets.strip
     category_input = input.to_i 
     if input == "0"
-      origin.gsub('"', '')
+      if username != nil
+        personal_stock_menu(username)
+      else
+        start
+      end
     elsif input == "00"
       start
     elsif (category_input > 0 && category_input <= Category.list.length)
@@ -99,10 +103,7 @@ class Cli
       list = Stock_list.bottom_9(category_index)
       stock_select(list, username, category_index)
     when "0"
-      if username !=nil 
-        general_stock_menu(username)
-        
-        
+      general_stock_menu(username)
     when "00"
       start
     else 
@@ -135,14 +136,12 @@ class Cli
     puts "3. Stock C"
     puts "To buy Stock A and C, type: 1,3"
     
-    username_search(username).stocks
-    
     input = gets.strip
     
-    input_arr = input.gsub(" ", "").split(",")
+    input_arr = input.split(",")
     
     if input == "0"
-      origin.gsub('"', '')
+     stock_list_menu(username, category_index)
     elsif input == "00"
       start
     elsif input_arr.any?{|element| element.to_i == false || element.to_i < 1 || element.to_i > username_search(username).stocks.length}
@@ -232,7 +231,7 @@ class Cli
   end
   
   def self.username_search(username)
-    Patron.all.find{|element| element.username == username}
+    Patron.all.find{|element| element.username != nil && element.username == username}
   end
   
   def self.password_check (username)
